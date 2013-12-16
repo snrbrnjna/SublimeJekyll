@@ -25,10 +25,22 @@ def make_post_time():
 
 def make_file_name(title_input):
 	jek_date = make_post_date()
-	jek_title = title_input.lower().replace(' ','-')
+	jek_title = slugify(title_input)
 	jek_file_type = '.md'
 	jek_post_title = jek_date + '-' + jek_title + jek_file_type
 	return jek_post_title
+
+import re
+from unicodedata import normalize
+_punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
+def slugify(text, delim=u'-'):
+    """Generates an slightly worse ASCII-only slug."""
+    result = []
+    for word in _punct_re.split(text.lower()):
+        word = normalize('NFKD', word).encode('ascii', 'ignore')
+        if word:
+            result.append(word)
+    return unicode(delim.join(result))
 
 class MakeJekyllPostCommand(sublime_plugin.WindowCommand):
 	

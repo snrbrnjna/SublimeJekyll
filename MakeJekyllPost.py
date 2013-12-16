@@ -3,16 +3,25 @@ import datetime
 
 header = '''---
 layout: post
-category : blog
-tags : []
+date: %s %s
+title: "%s"
+categories: 
+tags: 
+published: true
+author: 
+embed: 
 ---
-{% include JB/setup %}
 '''
 
 def make_post_date():
 	now = datetime.datetime.now()
 	file_date = now.strftime("%Y-%m-%d")
 	return file_date
+
+def make_post_time():
+	now = datetime.datetime.now()
+	file_time = now.strftime("%H-%M-%S")
+	return file_time
 
 def make_file_name(title_input):
 	jek_date = make_post_date()
@@ -27,8 +36,11 @@ class MakeJekyllPostCommand(sublime_plugin.WindowCommand):
 		new_post = self.window.new_file()
 		post_title = make_file_name(title)
 		new_post.set_name(post_title)
+
+		new_header = header % (make_post_date(), make_post_time(), title)
+		
 		edit = new_post.begin_edit()
-		new_post.insert(edit, 0, header)
+		new_post.insert(edit, 0, new_header)
 		new_post.end_edit(edit)
 
 	def run(self):

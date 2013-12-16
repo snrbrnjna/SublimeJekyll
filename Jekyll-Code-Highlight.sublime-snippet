@@ -1,0 +1,11 @@
+<snippet>
+  <content><![CDATA[
+{% highlight ${1:ruby} %} 
+${0:this}
+{% endhighlight %}
+]]></content>
+  <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+  <tabTrigger>high</tabTrigger>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <!-- <scope>source.markdown</scope> -->
+</snippet>
